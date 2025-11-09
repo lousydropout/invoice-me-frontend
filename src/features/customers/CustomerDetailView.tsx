@@ -72,6 +72,9 @@ export function CustomerDetailView() {
             <h1 className="text-3xl font-bold">{customer.name}</h1>
             <p className="mt-2 text-muted-foreground">Customer #{customer.id}</p>
           </div>
+          <Link to={`/customers/${customer.id}/edit`}>
+            <Button>Edit Customer</Button>
+          </Link>
         </div>
       </div>
 

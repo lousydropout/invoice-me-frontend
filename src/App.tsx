@@ -9,6 +9,8 @@ import { SendInvoiceView } from '@/features/invoices/SendInvoiceView';
 import { RecordPaymentView } from '@/features/invoices/RecordPaymentView';
 import { CustomersView } from '@/features/customers/CustomersView';
 import { CustomerDetailView } from '@/features/customers/CustomerDetailView';
+import { CreateCustomerView } from '@/features/customers/CreateCustomerView';
+import { EditCustomerView } from '@/features/customers/EditCustomerView';
 import { HealthView } from '@/features/health/HealthView';
 
 function App() {
@@ -75,6 +77,26 @@ function App() {
             <AuthGuard>
               <Layout>
                 <CustomersView />
+              </Layout>
+            </AuthGuard>
+          }
+        />
+        <Route
+          path="/customers/create"
+          element={
+            <AuthGuard>
+              <Layout>
+                <CreateCustomerView />
+              </Layout>
+            </AuthGuard>
+          }
+        />
+        <Route
+          path="/customers/:id/edit"
+          element={
+            <AuthGuard>
+              <Layout>
+                <EditCustomerView />
               </Layout>
             </AuthGuard>
           }

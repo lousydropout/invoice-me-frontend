@@ -38,11 +38,17 @@ export function CustomersView() {
             {customers.length} {customers.length === 1 ? 'customer' : 'customers'} found
           </p>
         </div>
+        <Link to="/customers/create">
+          <Button>Create Customer</Button>
+        </Link>
       </div>
 
       {customers.length === 0 ? (
         <div className="rounded-lg border bg-card p-12 text-center">
           <p className="text-muted-foreground">No customers found</p>
+          <Link to="/customers/create">
+            <Button className="mt-4">Create Your First Customer</Button>
+          </Link>
         </div>
       ) : (
         <div className="rounded-lg border bg-card">
