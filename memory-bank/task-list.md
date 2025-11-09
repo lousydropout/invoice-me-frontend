@@ -2,7 +2,7 @@
 
 ### Setup & Environment
 
-1. [ ] Initialize project:
+1. [x] Initialize project:
 
    ```bash
 
@@ -14,7 +14,7 @@
 
    ```
 
-2. [ ] Create `.env` with
+2. [x] Create `.env` with
 
    ```
 
@@ -22,7 +22,7 @@
 
    ```
 
-3. [ ] Configure `src/api/client.ts` with Axios base URL.
+3. [x] Configure `src/api/client.ts` with Axios base URL.
 
 ---
 
@@ -30,21 +30,21 @@
 
 #### Dashboard
 
-4. [ ] Implement `useDashboard.ts`
+4. [x] Implement `useDashboard.ts`
 
    * Fetch `/api/invoices/overdue`, `/api/customers/outstanding`, `/api/health`
 
-5. [ ] Create `DashboardView.tsx` to display KPIs and navigation links.
+5. [x] Create `DashboardView.tsx` to display KPIs and navigation links.
 
 #### Invoices
 
-6. [ ] Implement `useInvoices.ts` and `InvoicesView.tsx`
+6. [x] Implement `useInvoices.ts` and `InvoicesView.tsx`
 
    * Fetch `/api/invoices`
 
    * Add "Create Invoice" button (placeholder)
 
-7. [ ] Add `useInvoiceDetail.ts` and `InvoiceDetailView.tsx`
+7. [x] Add `useInvoiceDetail.ts` and `InvoiceDetailView.tsx`
 
    * Fetch `/api/invoices/{id}`
 
@@ -54,11 +54,11 @@
 
 #### Customers
 
-8. [ ] Implement `useCustomers.ts` and `CustomersView.tsx`
+8. [x] Implement `useCustomers.ts` and `CustomersView.tsx`
 
    * Fetch `/api/customers`
 
-9. [ ] Add `useCustomerDetail.ts` and `CustomerDetailView.tsx`
+9. [x] Add `useCustomerDetail.ts` and `CustomerDetailView.tsx`
 
    * Fetch `/api/customers/{id}`
 
@@ -66,7 +66,7 @@
 
 #### Health
 
-10. [ ] Implement `useHealth.ts` and `HealthView.tsx`
+10. [x] Implement `useHealth.ts` and `HealthView.tsx`
 
     * Fetch `/api/health`
 
