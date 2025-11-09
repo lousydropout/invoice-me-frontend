@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { apiClient } from '@/api/client';
+import { truncateToTwoDecimals } from '@/lib/money';
 
 export interface Money {
   amount: number;
@@ -39,6 +40,7 @@ export function useCustomers(): UseCustomersResult {
       ]);
 
       // Create a map of outstanding balances by customer ID
+      // Ignore balances less than 0.01 (trivial amounts)
       const outstandingBalanceMap = new Map<number, number>();
       outstandingResponse.data.forEach((customer) => {
         let balance: number;
@@ -48,7 +50,11 @@ export function useCustomers(): UseCustomersResult {
           } else {
             balance = customer.outstandingBalance as number;
           }
-          outstandingBalanceMap.set(customer.id, balance);
+          // Truncate to 2 decimal places, only include if >= 0.01
+          const truncatedBalance = truncateToTwoDecimals(balance);
+          if (truncatedBalance >= 0.01) {
+            outstandingBalanceMap.set(customer.id, truncatedBalance);
+          }
         }
       });
 

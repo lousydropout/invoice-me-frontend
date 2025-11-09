@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useInvoices } from './useInvoices';
 import { Button } from '@/components/ui/button';
+import { formatDollarsTruncated } from '@/lib/money';
 
 export function InvoicesView() {
   const { invoices, loading, error, refetch } = useInvoices();
@@ -114,16 +115,10 @@ export function InvoicesView() {
                       </span>
                     </td>
                     <td className="px-6 py-4 text-right font-medium">
-                      ${(invoice.total ?? 0).toLocaleString('en-US', {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2,
-                      })}
+                      ${formatDollarsTruncated(invoice.total ?? 0)}
                     </td>
                     <td className="px-6 py-4 text-right">
-                      ${(invoice.balance ?? 0).toLocaleString('en-US', {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2,
-                      })}
+                      ${formatDollarsTruncated(invoice.balance ?? 0)}
                     </td>
                     <td className="px-6 py-4 text-right">
                       <Link to={`/invoices/${invoice.id}`}>

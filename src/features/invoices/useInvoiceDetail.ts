@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { apiClient } from '@/api/client';
+import { truncateToTwoDecimals } from '@/lib/money';
 
 export interface Money {
   amount: number;
@@ -65,7 +66,45 @@ export function useInvoiceDetail(invoiceId: string | undefined): UseInvoiceDetai
       setError(null);
 
       const response = await apiClient.get<InvoiceDetail>(`/api/invoices/${invoiceId}`);
-      setInvoice(response.data);
+      // Normalize amounts: API returns Money objects with dollar amounts, truncate to 2 decimal places
+      const normalizedInvoice: InvoiceDetail = {
+        ...response.data,
+        subtotal: response.data.subtotal ? {
+          ...response.data.subtotal,
+          amount: truncateToTwoDecimals(response.data.subtotal.amount),
+        } : response.data.subtotal,
+        tax: response.data.tax ? {
+          ...response.data.tax,
+          amount: truncateToTwoDecimals(response.data.tax.amount),
+        } : response.data.tax,
+        total: response.data.total ? {
+          ...response.data.total,
+          amount: truncateToTwoDecimals(response.data.total.amount),
+        } : response.data.total,
+        balance: response.data.balance ? {
+          ...response.data.balance,
+          amount: truncateToTwoDecimals(response.data.balance.amount),
+        } : response.data.balance,
+        lineItems: response.data.lineItems?.map((item) => ({
+          ...item,
+          unitPrice: item.unitPrice ? {
+            ...item.unitPrice,
+            amount: truncateToTwoDecimals(item.unitPrice.amount),
+          } : item.unitPrice,
+          subtotal: item.subtotal ? {
+            ...item.subtotal,
+            amount: truncateToTwoDecimals(item.subtotal.amount),
+          } : item.subtotal,
+        })),
+        payments: response.data.payments?.map((payment) => ({
+          ...payment,
+          amount: payment.amount ? {
+            ...payment.amount,
+            amount: truncateToTwoDecimals(payment.amount.amount),
+          } : payment.amount,
+        })),
+      };
+      setInvoice(normalizedInvoice);
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Failed to fetch invoice';
       setError(errorMessage);

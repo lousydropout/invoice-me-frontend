@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useDashboard, type Invoice, type Customer } from './useDashboard';
 import { Button } from '@/components/ui/button';
+import { formatDollarsTruncated } from '@/lib/money';
 
 export function DashboardView() {
   const { overdueInvoices, allInvoices, allCustomers, health, loading, error } = useDashboard();
@@ -108,10 +109,7 @@ export function DashboardView() {
             <div className="flex justify-between text-sm">
               <span className="text-muted-foreground">Total Outstanding</span>
               <span className="font-semibold">
-                ${totalOutstandingBalance.toLocaleString('en-US', {
-                  minimumFractionDigits: 2,
-                  maximumFractionDigits: 2,
-                })}
+                ${formatDollarsTruncated(totalOutstandingBalance)}
               </span>
             </div>
             <div className="border-t pt-2 mt-2">
@@ -122,10 +120,7 @@ export function DashboardView() {
               <div className="flex justify-between text-sm mt-1">
                 <span className="text-muted-foreground">Total Overdue</span>
                 <span className="font-semibold">
-                  ${totalOverdue.toLocaleString('en-US', {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                  })}
+                  ${formatDollarsTruncated(totalOverdue)}
                 </span>
               </div>
             </div>

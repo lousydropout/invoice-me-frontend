@@ -2,6 +2,7 @@ import { useParams, Link } from 'react-router-dom';
 import { useInvoiceDetail } from './useInvoiceDetail';
 import { useCustomerDetail } from '@/features/customers/useCustomerDetail';
 import { Button } from '@/components/ui/button';
+import { formatDollarsTruncated } from '@/lib/money';
 
 export function InvoiceDetailView() {
   const { id } = useParams<{ id: string }>();
@@ -190,10 +191,7 @@ export function InvoiceDetailView() {
             <div className="flex justify-between">
               <dt className="text-sm font-medium text-muted-foreground">Subtotal</dt>
               <dd className="text-sm">
-                ${(invoice.subtotal?.amount ?? 0).toLocaleString('en-US', {
-                  minimumFractionDigits: 2,
-                  maximumFractionDigits: 2,
-                })}
+                ${formatDollarsTruncated(invoice.subtotal?.amount ?? 0)}
               </dd>
             </div>
             <div className="flex justify-between">
@@ -201,31 +199,22 @@ export function InvoiceDetailView() {
                 Tax {invoice.taxRate ? `(${(invoice.taxRate * 100).toFixed(1)}%)` : ''}
               </dt>
               <dd className="text-sm">
-                ${(invoice.tax?.amount ?? 0).toLocaleString('en-US', {
-                  minimumFractionDigits: 2,
-                  maximumFractionDigits: 2,
-                })}
+                ${formatDollarsTruncated(invoice.tax?.amount ?? 0)}
               </dd>
             </div>
             <div className="flex justify-between border-t pt-3">
               <dt className="text-sm font-semibold">Total Amount</dt>
               <dd className="text-sm font-semibold">
-                ${(invoice.total?.amount ?? 0).toLocaleString('en-US', {
-                  minimumFractionDigits: 2,
-                  maximumFractionDigits: 2,
-                })}
+                ${formatDollarsTruncated(invoice.total?.amount ?? 0)}
               </dd>
             </div>
             {invoice.payments && invoice.payments.length > 0 && (
               <div className="flex justify-between">
                 <dt className="text-sm font-medium text-muted-foreground">Paid Amount</dt>
                 <dd className="text-sm">
-                  ${invoice.payments
-                    .reduce((sum, payment) => sum + (payment.amount?.amount ?? 0), 0)
-                    .toLocaleString('en-US', {
-                      minimumFractionDigits: 2,
-                      maximumFractionDigits: 2,
-                    })}
+                  ${formatDollarsTruncated(
+                    invoice.payments.reduce((sum, payment) => sum + (payment.amount?.amount ?? 0), 0)
+                  )}
                 </dd>
               </div>
             )}
@@ -233,10 +222,7 @@ export function InvoiceDetailView() {
               <div className="flex justify-between">
                 <dt className="text-base font-semibold">Outstanding Amount</dt>
                 <dd className="text-base font-bold">
-                  ${(invoice.balance?.amount ?? 0).toLocaleString('en-US', {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                  })}
+                  ${formatDollarsTruncated(invoice.balance?.amount ?? 0)}
                 </dd>
               </div>
             </div>
@@ -272,16 +258,10 @@ export function InvoiceDetailView() {
                     <td className="px-4 py-3">{item.description}</td>
                     <td className="px-4 py-3 text-right">{item.quantity}</td>
                     <td className="px-4 py-3 text-right">
-                      ${(item.unitPrice?.amount ?? 0).toLocaleString('en-US', {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2,
-                      })}
+                      ${formatDollarsTruncated(item.unitPrice?.amount ?? 0)}
                     </td>
                     <td className="px-4 py-3 text-right font-medium">
-                      ${(item.subtotal?.amount ?? 0).toLocaleString('en-US', {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2,
-                      })}
+                      ${formatDollarsTruncated(item.subtotal?.amount ?? 0)}
                     </td>
                   </tr>
                 ))}
@@ -293,10 +273,7 @@ export function InvoiceDetailView() {
                     <td className="px-4 py-3 text-right">—</td>
                     <td className="px-4 py-3 text-right">—</td>
                     <td className="px-4 py-3 text-right font-medium">
-                      ${(invoice.tax?.amount ?? 0).toLocaleString('en-US', {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2,
-                      })}
+                      ${formatDollarsTruncated(invoice.tax?.amount ?? 0)}
                     </td>
                   </tr>
                 )}
@@ -305,10 +282,7 @@ export function InvoiceDetailView() {
                     Total
                   </td>
                   <td className="px-4 py-3 text-right">
-                    ${(invoice.total?.amount ?? 0).toLocaleString('en-US', {
-                      minimumFractionDigits: 2,
-                      maximumFractionDigits: 2,
-                    })}
+                    ${formatDollarsTruncated(invoice.total?.amount ?? 0)}
                   </td>
                 </tr>
               </tbody>

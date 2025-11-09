@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { apiClient } from '@/api/client';
+import { truncateToTwoDecimals } from '@/lib/money';
 
 export interface Invoice {
   id: string;
@@ -31,7 +32,13 @@ export function useInvoices(): UseInvoicesResult {
       setError(null);
 
       const response = await apiClient.get<Invoice[]>('/api/invoices');
-      setInvoices(response.data);
+      // Normalize amounts: API returns dollar amounts with decimals, truncate to 2 decimal places
+      const normalizedInvoices = response.data.map((invoice) => ({
+        ...invoice,
+        total: truncateToTwoDecimals(invoice.total), // Truncate to 2 decimals (treat as dollars)
+        balance: truncateToTwoDecimals(invoice.balance), // Truncate to 2 decimals (treat as dollars)
+      }));
+      setInvoices(normalizedInvoices);
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Failed to fetch invoices';
       setError(errorMessage);
