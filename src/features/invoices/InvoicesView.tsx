@@ -38,13 +38,17 @@ export function InvoicesView() {
             {invoices.length} {invoices.length === 1 ? 'invoice' : 'invoices'} found
           </p>
         </div>
-        <Button>Create Invoice</Button>
+        <Link to="/invoices/create">
+          <Button>Create Invoice</Button>
+        </Link>
       </div>
 
       {invoices.length === 0 ? (
         <div className="rounded-lg border bg-card p-12 text-center">
           <p className="text-muted-foreground">No invoices found</p>
-          <Button className="mt-4">Create Your First Invoice</Button>
+          <Link to="/invoices/create">
+            <Button className="mt-4">Create Your First Invoice</Button>
+          </Link>
         </div>
       ) : (
         <div className="rounded-lg border bg-card">

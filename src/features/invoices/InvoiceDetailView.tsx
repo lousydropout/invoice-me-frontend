@@ -63,6 +63,9 @@ export function InvoiceDetailView() {
             <h1 className="text-3xl font-bold">Invoice {invoice.invoiceNumber}</h1>
           </div>
           <div className="flex gap-2">
+            <Link to={`/invoices/${invoice.id}/edit`}>
+              <Button variant="outline">Edit Invoice</Button>
+            </Link>
             {invoice.status === 'SENT' ? (
               <Button variant="outline" disabled>
                 Sent

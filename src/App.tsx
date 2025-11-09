@@ -7,6 +7,8 @@ import { InvoicesView } from '@/features/invoices/InvoicesView';
 import { InvoiceDetailView } from '@/features/invoices/InvoiceDetailView';
 import { SendInvoiceView } from '@/features/invoices/SendInvoiceView';
 import { RecordPaymentView } from '@/features/invoices/RecordPaymentView';
+import { CreateInvoiceView } from '@/features/invoices/CreateInvoiceView';
+import { EditInvoiceView } from '@/features/invoices/EditInvoiceView';
 import { CustomersView } from '@/features/customers/CustomersView';
 import { CustomerDetailView } from '@/features/customers/CustomerDetailView';
 import { CreateCustomerView } from '@/features/customers/CreateCustomerView';
@@ -37,6 +39,26 @@ function App() {
             <AuthGuard>
               <Layout>
                 <InvoicesView />
+              </Layout>
+            </AuthGuard>
+          }
+        />
+        <Route
+          path="/invoices/create"
+          element={
+            <AuthGuard>
+              <Layout>
+                <CreateInvoiceView />
+              </Layout>
+            </AuthGuard>
+          }
+        />
+        <Route
+          path="/invoices/:id/edit"
+          element={
+            <AuthGuard>
+              <Layout>
+                <EditInvoiceView />
               </Layout>
             </AuthGuard>
           }
